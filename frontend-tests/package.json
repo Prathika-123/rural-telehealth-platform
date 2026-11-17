@@ -1,0 +1,7 @@
+{
+  "name": "rural-telehealth-frontend",
+  "private": true,
+  "description": "The app itself is plain HTML/CSS/JS with no build step. This file only exists to run the tests (npm install, then npm test).",
+  "scripts": { "test": "node --test" },
+  "devDependencies": { "jsdom": "^24.1.0" }
+}

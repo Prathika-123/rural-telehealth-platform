@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="app.title">Rural Telehealth and Medicine Availability Platform</title>
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body data-page="index">
+<a class="skip-link" href="#main" data-i18n="common.skipToContent">Skip to content</a>
+<div id="site-header"></div>
+<main id="main" class="container">
+<section class="hero stack">
+  <h1 data-i18n="app.title">Rural Telehealth and Medicine Availability Platform</h1>
+  <p data-i18n="app.tagline">Find medicines, doctors and health centres near you</p>
+  <div class="row">
+    <a class="btn secondary" href="medicine-search.html">&#x1F48A; <span data-i18n="nav.findMedicine">Find Medicine</span></a>
+    <a class="btn secondary" href="doctors.html">&#x1FA7A; <span data-i18n="nav.findDoctor">Find Doctor</span></a>
+  </div>
+</section>
+<section class="stack" style="margin-top:1.25rem">
+  <h2 data-i18n="home.whatNeed">What do you need today?</h2>
+  <div id="tiles" class="grid"></div>
+</section>
+<section class="emergency-box stack" style="margin-top:1.25rem">
+  <h2 data-i18n="symptoms.emergencyTitle">Emergency guidance</h2>
+  <p data-i18n="home.emergencyText">If someone cannot breathe, has chest pain, is unconscious or is bleeding heavily, call 112 now.</p>
+  <a class="btn danger" href="symptoms.html" data-i18n="home.emergencyLink">Read emergency guidance</a>
+</section>
+<section class="card stack" style="margin-top:1.25rem">
+  <h2 data-i18n="home.providersTitle">Pharmacy or healthcare provider?</h2>
+  <p data-i18n="home.providersText">Register to list your pharmacy, medicines, centre and doctors so people nearby can find you.</p>
+  <a class="btn" href="register.html" data-i18n="nav.register">Register</a>
+</section>
+</main>
+<div id="site-footer"></div>
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/geo.js"></script>
+<script src="js/map.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/components.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/pages/index.js"></script>
+</body>
+</html>

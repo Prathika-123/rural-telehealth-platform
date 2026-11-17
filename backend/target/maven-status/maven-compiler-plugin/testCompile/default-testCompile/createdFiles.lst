@@ -1,0 +1,13 @@
+com\ruralhealth\controller\Phase3DoctorsAndSymptomsIntegrationTest.class
+com\ruralhealth\util\DoctorAvailabilityCalculatorTest.class
+com\ruralhealth\service\SymptomServiceTest.class
+com\ruralhealth\util\I18nFilesTest$1.class
+com\ruralhealth\service\StockPolicyTest.class
+com\ruralhealth\util\MedicineQueryParserTest.class
+com\ruralhealth\controller\Phase3DoctorsAndSymptomsIntegrationTest$FixedClockConfig.class
+com\ruralhealth\util\I18nFilesTest.class
+com\ruralhealth\security\JwtServiceTest.class
+com\ruralhealth\controller\AdminStatsIntegrationTest.class
+com\ruralhealth\controller\AuthFlowIntegrationTest.class
+com\ruralhealth\util\GeoUtilsTest.class
+com\ruralhealth\controller\Phase2WorkflowIntegrationTest.class

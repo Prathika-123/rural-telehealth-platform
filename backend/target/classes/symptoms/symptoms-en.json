@@ -1,0 +1,201 @@
+{
+  "language": "en",
+  "reviewStatus": "DRAFT_NOT_MEDICALLY_REVIEWED",
+  "basis": "Summarised from widely published general public-health advice (for example WHO and Government of India health guidance). NOT reviewed by a clinician. Must be checked and approved by a qualified medical professional, and translations by a native speaker, against current official sources before any real-world use.",
+  "disclaimer": "This information is for general education only. It is not a diagnosis and does not replace a consultation with a doctor or health worker. Do not start or stop any medicine without medical advice. If you feel very unwell or are worried, visit a health centre.",
+  "emergency": {
+    "title": "Emergency: act immediately",
+    "intro": "Do not wait or try home remedies if a person has any of these signs.",
+    "signs": [
+      "Severe difficulty breathing, or lips and face turning blue",
+      "Chest pain or pressure that does not go away, especially with sweating or pain spreading to the arm or jaw",
+      "Fainting, unconsciousness, or sudden confusion",
+      "A fit (seizure) that does not stop, or the first fit a person has ever had",
+      "Sudden weakness or numbness on one side, a drooping face, or trouble speaking",
+      "Heavy bleeding that does not stop",
+      "Severe injury, burns, or suspected poisoning",
+      "In pregnancy: heavy bleeding, severe pain, or fits",
+      "A baby or child who is very drowsy, cannot drink, or is hard to wake"
+    ],
+    "actions": [
+      "Call an emergency number now, or ask someone nearby to call.",
+      "Go to the nearest hospital. If possible, do not travel alone.",
+      "Stay with the person and keep them calm. Do not give food or drink to someone who is unconscious or having a fit.",
+      "Use the Nearby Hospitals page to find the closest hospital with emergency care."
+    ],
+    "numbers": [
+      {
+        "number": "112",
+        "label": "National emergency number"
+      },
+      {
+        "number": "108",
+        "label": "Ambulance (available in many states, including Karnataka)"
+      }
+    ]
+  },
+  "symptoms": [
+    {
+      "id": "fever",
+      "name": "Fever",
+      "emergency": false,
+      "about": "Fever means the body temperature is higher than normal. It is a sign that the body is reacting to something, often an infection. It has many possible causes, so this page cannot tell you what is causing it.",
+      "selfCare": [
+        "Rest and drink plenty of safe fluids.",
+        "Wear light clothes and keep the room comfortable.",
+        "Check the temperature again after a few hours and note how many days the fever lasts."
+      ],
+      "seeDoctorIf": [
+        "Fever lasts more than 2 to 3 days.",
+        "The person is a baby under 3 months, an older adult, pregnant, or has a long-term illness.",
+        "There is a rash, severe headache, pain behind the eyes, or bleeding from the gums or nose.",
+        "Fever comes with repeated vomiting, or the person cannot drink fluids."
+      ],
+      "emergencyIf": [
+        "Fits (seizures), confusion, or a stiff neck.",
+        "Very sleepy and hard to wake, or difficulty breathing."
+      ]
+    },
+    {
+      "id": "cough-sore-throat",
+      "name": "Cough or sore throat",
+      "emergency": false,
+      "about": "Cough and sore throat are common and usually come from short infections that get better on their own. Smoke, dust and allergies can also cause them.",
+      "selfCare": [
+        "Drink warm fluids and rest.",
+        "Avoid smoke, including cooking smoke and tobacco, where possible.",
+        "Cover your mouth when coughing and wash your hands often to protect others."
+      ],
+      "seeDoctorIf": [
+        "Cough lasts more than 2 weeks. This needs testing, for example for tuberculosis, especially with weight loss, night sweats or blood in the cough.",
+        "High fever lasts more than 3 days.",
+        "Wheezing, or throat pain that makes swallowing very difficult.",
+        "A young child, older adult or pregnant woman whose cough is getting worse."
+      ],
+      "emergencyIf": [
+        "Struggling to breathe, or lips turning blue."
+      ]
+    },
+    {
+      "id": "headache",
+      "name": "Headache",
+      "emergency": false,
+      "about": "Most headaches are not serious. They are often linked to tiredness, stress, lack of sleep, not drinking enough water, or eye strain.",
+      "selfCare": [
+        "Rest in a quiet place and drink water.",
+        "Try to keep regular meals and sleep times.",
+        "Limit long screen time, and get your eyes checked if headaches are frequent."
+      ],
+      "seeDoctorIf": [
+        "Headaches that keep coming back or keep getting worse.",
+        "Headache with fever and vomiting, or with blurred vision.",
+        "Headache after a blow to the head.",
+        "A new, very sudden and severe headache."
+      ],
+      "emergencyIf": [
+        "Sudden worst-ever headache, weakness on one side, trouble speaking, fits, or fainting."
+      ]
+    },
+    {
+      "id": "diarrhoea-vomiting",
+      "name": "Diarrhoea or vomiting",
+      "emergency": false,
+      "about": "Loose watery stools or vomiting often come from infection or unsafe food or water. The main danger is losing too much body water (dehydration), especially in children and older people.",
+      "selfCare": [
+        "Take small, frequent sips of safe fluids. Oral rehydration solution (ORS) is the standard recommendation; ask a health worker how to prepare and use it.",
+        "Keep eating normally if you can. Breastfeed babies as usual.",
+        "Use boiled or treated water, and wash hands with soap before eating and after using the toilet."
+      ],
+      "seeDoctorIf": [
+        "Diarrhoea lasts more than 2 days, or vomiting lasts more than 1 day.",
+        "Blood in the stool, or a high fever.",
+        "Signs of dehydration: very dry mouth, passing little or no urine, sunken eyes, extreme thirst or weakness.",
+        "The person is a baby, an older adult, or pregnant."
+      ],
+      "emergencyIf": [
+        "Very drowsy, fainting, or unable to drink."
+      ]
+    },
+    {
+      "id": "stomach-pain",
+      "name": "Stomach pain",
+      "emergency": false,
+      "about": "Stomach pain has many causes, from indigestion and gas to problems that need urgent care. This page cannot tell which one it is.",
+      "selfCare": [
+        "Rest and take sips of water.",
+        "Avoid very spicy or oily food, alcohol and tobacco until you feel better.",
+        "Note where the pain is, when it started, and what makes it better or worse, to tell the doctor."
+      ],
+      "seeDoctorIf": [
+        "Pain lasts more than a day or keeps coming back.",
+        "Pain with fever, repeated vomiting, or yellow eyes or skin.",
+        "Black or bloody stools, or unexplained weight loss.",
+        "Any stomach pain during pregnancy."
+      ],
+      "emergencyIf": [
+        "Severe pain that does not ease, a hard swollen belly, or vomiting blood.",
+        "Severe pain in a pregnant woman, or pain with heavy bleeding."
+      ]
+    },
+    {
+      "id": "skin-rash",
+      "name": "Skin rash",
+      "emergency": false,
+      "about": "Rashes can be caused by heat, allergies, infections or skin conditions. Many are harmless, but some need a doctor.",
+      "selfCare": [
+        "Keep the area clean and dry, and try not to scratch.",
+        "Avoid any new soap, cream or food you suspect caused it.",
+        "Wear loose cotton clothes."
+      ],
+      "seeDoctorIf": [
+        "The rash spreads quickly, blisters, or becomes painful.",
+        "Rash with fever, or a rash after starting a new medicine.",
+        "Signs of infection: pus, warmth, swelling or spreading redness.",
+        "A rash that does not improve in a few days."
+      ],
+      "emergencyIf": [
+        "Rash with swelling of the face or lips, or trouble breathing."
+      ]
+    },
+    {
+      "id": "breathlessness",
+      "name": "Difficulty breathing",
+      "emergency": true,
+      "about": "Difficulty breathing can be serious. If it is severe, sudden or getting worse, do not wait to see if it passes.",
+      "selfCare": [
+        "Sit upright and try to stay calm.",
+        "Loosen tight clothing and get fresh air.",
+        "Ask someone to stay with you and help you reach care."
+      ],
+      "seeDoctorIf": [
+        "New breathlessness during light activity.",
+        "Breathlessness with a cough or fever lasting more than a few days.",
+        "Swollen feet together with breathlessness."
+      ],
+      "emergencyIf": [
+        "Severe breathlessness, being unable to speak full sentences, blue lips, or chest pain.",
+        "Breathlessness in a baby or young child."
+      ]
+    },
+    {
+      "id": "chest-pain",
+      "name": "Chest pain",
+      "emergency": true,
+      "about": "Chest pain has many causes, and some are life-threatening. Treat new or severe chest pain as an emergency until a doctor says otherwise.",
+      "selfCare": [
+        "Stop what you are doing and sit down.",
+        "Ask someone to stay with you.",
+        "Do not drive yourself to the hospital."
+      ],
+      "seeDoctorIf": [
+        "Mild chest discomfort that comes with effort and goes away with rest.",
+        "Sharp pain that is worse with deep breaths or coughing.",
+        "Burning pain after meals that keeps coming back."
+      ],
+      "emergencyIf": [
+        "Chest pain or pressure lasting more than a few minutes, or spreading to the arm, neck or jaw.",
+        "Chest pain with sweating, nausea, breathlessness or fainting."
+      ]
+    }
+  ]
+}

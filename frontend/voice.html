@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="nav.voiceSearch">Voice Search</title>
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body data-page="voice">
+<a class="skip-link" href="#main" data-i18n="common.skipToContent">Skip to content</a>
+<div id="site-header"></div>
+<main id="main" class="container">
+<h1 data-i18n="nav.voiceSearch">Voice Search</h1>
+<div class="card stack">
+  <div><span class="label" id="mode-label" data-i18n="voice.whatSearch">What do you want to find?</span>
+    <div class="chips" id="mode-chips" role="group" aria-labelledby="mode-label"></div></div>
+  <p class="muted" id="example"></p>
+  <div class="row"><span id="mic-slot"></span></div>
+  <div id="text-field"></div>
+  <div class="row"><button class="btn" type="button" id="go-btn" data-i18n="common.search">Search</button></div>
+  <p class="muted" data-i18n="voice.privacy">Voice recognition is provided by your browser and may send your voice to its provider.</p>
+</div>
+<div class="card stack" style="margin-top:1rem">
+  <h2 data-i18n="voice.emergencyAloud">Listen to emergency guidance</h2>
+  <div class="row"><button class="btn danger" type="button" id="speak-emergency" data-i18n="voice.readAloud">Read aloud</button>
+    <button class="btn secondary" type="button" id="stop-speaking" data-i18n="voice.stopReading">Stop reading</button></div>
+  <div id="tts-note"></div>
+</div>
+</main>
+<div id="site-footer"></div>
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/geo.js"></script>
+<script src="js/map.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/components.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/pages/voice.js"></script>
+</body>
+</html>
