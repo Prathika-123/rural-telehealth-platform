@@ -11,8 +11,8 @@ RHP.boot({ page: 'profile', roles: ['USER', 'PHARMACY', 'HEALTHCARE_PROVIDER', '
 
     function info() {
       ui.replace(document.getElementById('account-info'),
-        h('dt', { class: 'muted' }, t('auth.email')), h('dd', { style: 'margin:0 0 .6rem' }, user.email),
-        h('dt', { class: 'muted' }, t('auth.role')), h('dd', { style: 'margin:0 0 1rem' }, t('role.' + user.role)));
+        h('dt', { class: 'muted' }, t('auth.email')), h('dd', { class: 'mb-2' }, user.email),
+        h('dt', { class: 'muted' }, t('auth.role')), h('dd', { class: 'mb-4' }, t('role.' + user.role)));
     }
     info();
     window.I18n.onChange(info);

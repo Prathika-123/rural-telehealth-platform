@@ -28,8 +28,9 @@ RHP.boot({ page: 'medicine' }, function () {
         h('h2', null, pharmacy.name, ' ', ui.sampleBadge(pharmacy.name)),
         h('p', { class: 'muted' }, [pharmacy.address, pharmacy.taluk, pharmacy.district].filter(Boolean).join(', ')),
         h('p', { class: 'muted' }, t('common.coordinates', { lat: Number(pharmacy.latitude).toFixed(5), lng: Number(pharmacy.longitude).toFixed(5) })),
-        h('div', { class: 'row' }, ui.telLink(pharmacy.phone),
-          h('a', { class: 'btn secondary small', href: RHP.geo.directionsUrl({ lat: pharmacy.latitude, lng: pharmacy.longitude }, loc), target: '_blank', rel: 'noopener' }, '\uD83E\uDDED ' + t('common.directions')))),
+        var Icons = RHP.Icons;
+      h('div', { class: 'row' }, ui.telLink(pharmacy.phone),
+        h('a', { class: 'btn secondary small', href: RHP.geo.directionsUrl({ lat: pharmacy.latitude, lng: pharmacy.longitude }, loc), target: '_blank', rel: 'noopener' }, Icons ? Icons.wrap(Icons.directions) : '\uD83E\uDDED', ' ', t('common.directions')))),
       mapDiv,
       ui.alert('info', t('medicine.disclaimer')),
       h('h2', null, t('pharmacy.medicinesHere')),
@@ -37,8 +38,9 @@ RHP.boot({ page: 'medicine' }, function () {
         h('thead', null, h('tr', null, h('th', null, t('pharmacy.colMedicine')), h('th', null, t('medicine.price')), h('th', null, t('pharmacy.colStock')), h('th', null, t('pharmacy.colUpdated')))),
         h('tbody', null, rows))) : h('p', { class: 'muted' }, t('pharmacy.noStock')),
       ui.pager({ page: stock.page, totalPages: stock.totalPages, onChange: load })));
+    var Icons = RHP.Icons;
     map = new RHP.RuralMap(mapDiv, { lat: Number(pharmacy.latitude), lng: Number(pharmacy.longitude), zoom: 15, label: pharmacy.name });
-    map.setMarkers([{ lat: Number(pharmacy.latitude), lng: Number(pharmacy.longitude), icon: '\uD83D\uDC8A', label: pharmacy.name, popup: pharmacy.name }]);
+    map.setMarkers([{ lat: Number(pharmacy.latitude), lng: Number(pharmacy.longitude), icon: Icons ? Icons.wrap(Icons.medicine) : '\uD83D\uDC8A', label: pharmacy.name, popup: pharmacy.name }]);
     if (loc) map.setUser(loc.lat, loc.lng);
   }
 

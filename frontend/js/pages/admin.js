@@ -19,7 +19,7 @@ RHP.boot({ page: 'admin', roles: ['ADMIN'] }, function () {
     return h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, headKeys.map(function (k) { return h('th', null, t(k)); }))), h('tbody', null, rows)));
   }
   function filter(labelKey, id, value, options, onChange) {
-    var sel = h('select', { id: id, style: 'width:auto' }, options.map(function (o) { return h('option', { value: o.value, selected: o.value === value }, o.label); }));
+    var sel = h('select', { id: id, class: 'w-auto' }, options.map(function (o) { return h('option', { value: o.value, selected: o.value === value }, o.label); }));
     sel.addEventListener('change', function () { onChange(sel.value); });
     return h('div', { class: 'row' }, h('label', { for: id }, t(labelKey)), sel);
   }
@@ -128,7 +128,7 @@ RHP.boot({ page: 'admin', roles: ['ADMIN'] }, function () {
 
   function medicines(page) {
     return RHP.api.get('/admin/medicines', { q: state.medicineQ, page: page, size: 10 }).then(function (d) {
-      var q = h('input', { type: 'search', value: state.medicineQ, 'aria-label': t('common.search'), style: 'max-width:20rem' });
+      var q = h('input', { type: 'search', value: state.medicineQ, 'aria-label': t('common.search'), class: 'max-w-[20rem]' });
       var rows = d.content.map(function (m) {
         return h('tr', null, h('td', null, m.brandName), h('td', null, m.genericName), h('td', null, m.strength), h('td', null, m.dosageForm),
           h('td', null, m.prescriptionRequired ? t('common.yes') : t('common.no')),

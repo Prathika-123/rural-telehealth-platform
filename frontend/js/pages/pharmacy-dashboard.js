@@ -78,10 +78,11 @@ RHP.boot({ page: 'pharmacy', roles: ['PHARMACY'] }, function () {
         h('p', { class: 'muted' }, [pharmacy.address, pharmacy.taluk, pharmacy.district].filter(Boolean).join(', ')), notice),
       summary ? h('div', { class: 'grid' }, stat(t('pharmacy.statTotal'), summary.total), stat(t('stock.LOW_STOCK'), summary.low, 'warn'),
         stat(t('stock.OUT_OF_STOCK'), summary.out, 'warn'), stat(t('pharmacy.statStale'), summary.stale, 'warn')) : ui.spinner(),
-      h('div', { class: 'row' }, h('a', { class: 'btn', href: 'inventory.html' }, '\uD83D\uDCE6 ' + t('inventory.title'))),
+      var Icons = RHP.Icons;
+      h('div', { class: 'row' }, h('a', { class: 'btn', href: 'inventory.html' }, Icons ? Icons.wrap(Icons.inventory) : '\uD83D\uDCE6', ' ', t('inventory.title'))),
       ui.alert('info', t('pharmacy.staleReminder')),
       h('details', { class: 'card' }, h('summary', null, t('pharmacy.editDetails')),
-        h('div', { style: 'margin-top:1rem' }, pharmacyForm(pharmacy, function (saved) { pharmacy = saved; render(); })))));
+        h('div', { class: 'mt-4' }, pharmacyForm(pharmacy, function (saved) { pharmacy = saved; render(); })))));
   }
 
   window.I18n.onChange(render);

@@ -2,20 +2,21 @@
 (function () {
   'use strict';
   var RHP = (window.RHP = window.RHP || {});
-  var ui = RHP.ui, h = ui.h;
+  var ui = RHP.ui, h = ui.h, Icons = RHP.Icons;
   function t(k, p) { return window.I18n.t(k, p); }
 
   var NAV = [
-    { page: 'medicine', href: 'medicine-search.html', key: 'nav.findMedicine', icon: '\uD83D\uDC8A' },
-    { page: 'doctors', href: 'doctors.html', key: 'nav.findDoctor', icon: '\uD83E\uDE7A' },
-    { page: 'centres', href: 'centres.html', key: 'nav.nearbyCentres', icon: '\uD83C\uDFE5' },
-    { page: 'symptoms', href: 'symptoms.html', key: 'nav.healthInfo', icon: '\uD83D\uDCD6' },
-    { page: 'voice', href: 'voice.html', key: 'nav.voiceSearch', icon: '\uD83C\uDFA4' }
+    { page: 'medicine', href: 'medicine-search.html', key: 'nav.findMedicine', iconFn: 'medicine' },
+    { page: 'doctors', href: 'doctors.html', key: 'nav.findDoctor', iconFn: 'doctor' },
+    { page: 'centres', href: 'centres.html', key: 'nav.nearbyCentres', iconFn: 'centre' },
+    { page: 'symptoms', href: 'symptoms.html', key: 'nav.healthInfo', iconFn: 'healthInfo' },
+    { page: 'voice', href: 'voice.html', key: 'nav.voiceSearch', iconFn: 'voiceSearch' }
   ];
 
   function navLink(item, current) {
+    var iconEl = Icons && Icons[item.iconFn] ? Icons.wrap(Icons[item.iconFn]) : h('span', { 'aria-hidden': 'true' }, '');
     return h('a', { href: item.href, 'aria-current': item.page === current ? 'page' : null },
-      h('span', { 'aria-hidden': 'true' }, item.icon + '\u00A0'), h('span', { 'data-i18n': item.key }, t(item.key)));
+      iconEl, h('span', { 'data-i18n': item.key }, t(item.key)));
   }
 
   function buildHeader(current) {
@@ -29,17 +30,17 @@
       nav.appendChild(h('a', { href: 'login.html', 'aria-current': current === 'login' ? 'page' : null, 'data-i18n': 'nav.login' }, t('nav.login')));
       nav.appendChild(h('a', { href: 'register.html', 'aria-current': current === 'register' ? 'page' : null, 'data-i18n': 'nav.register' }, t('nav.register')));
     }
-    var select = h('select', { class: 'lang-select', 'data-i18n-aria-label': 'nav.language', 'aria-label': t('nav.language') });
+    var select = h('select', { class: 'lang-select', 'data-i18n-aria-label': 'nav.language', 'aria-label': 'Language' });
     window.I18n.mountSelector(select);
     var toggle = h('button', { class: 'btn secondary small menu-toggle', type: 'button', 'aria-controls': 'main-nav', 'aria-expanded': 'false',
       'data-i18n-aria-label': 'nav.menu', 'aria-label': t('nav.menu'),
-      onClick: function () { var open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); } }, '\u2630');
+      onClick: function () { var open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); } }, Icons ? Icons.wrap(Icons.menu) : '\u2630');
 
     return h('div', null,
       h('div', { class: 'emergency-bar' }, h('span', { 'data-i18n': 'layout.emergency' }, t('layout.emergency')), ' ',
         h('a', { href: 'tel:112' }, '112'), ' \u00B7 ', h('a', { href: 'tel:108' }, '108')),
       h('header', { class: 'site-header' }, h('div', { class: 'bar' },
-        h('a', { class: 'brand', href: 'index.html' }, h('span', { 'aria-hidden': 'true' }, '\uD83C\uDFE5'), h('span', { 'data-i18n': 'app.short' }, t('app.short'))),
+        h('a', { class: 'brand', href: 'index.html' }, Icons ? Icons.wrap(Icons.home) : h('span', { 'aria-hidden': 'true' }, ''), h('span', { 'data-i18n': 'app.short' }, t('app.short'))),
         select, toggle, nav)));
   }
 

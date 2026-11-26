@@ -241,6 +241,8 @@
   };
 
   ui.telLink = function (phone) {
-    return phone ? h('a', { class: 'btn secondary small', href: 'tel:' + String(phone).replace(/[^+0-9]/g, '') }, '\uD83D\uDCDE ' + t('common.call') + ' ' + phone) : null;
+    var Icons = RHP.Icons;
+    var icon = Icons ? Icons.wrap(Icons.phone) : '\uD83D\uDCDE';
+    return phone ? h('a', { class: 'btn secondary small', href: 'tel:' + String(phone).replace(/[^+0-9]/g, '') }, icon, ' ', t('common.call'), ' ', phone) : null;
   };
 })();

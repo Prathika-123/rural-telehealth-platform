@@ -3,24 +3,26 @@
   'use strict';
   var RHP = (window.RHP = window.RHP || {});
   var C = (RHP.components = {});
+  var Icons = RHP.Icons;
 
   function t(k, p) { return window.I18n.t(k, p); }
 
   /** The five main actions, shared by the landing page and the dashboard. */
   C.mainTiles = function () {
     return [
-      { icon: '\uD83D\uDC8A', key: 'nav.findMedicine', desc: 'tile.medicine.desc', href: 'medicine-search.html' },
-      { icon: '\uD83E\uDE7A', key: 'nav.findDoctor', desc: 'tile.doctor.desc', href: 'doctors.html' },
-      { icon: '\uD83C\uDFE5', key: 'nav.nearbyCentres', desc: 'tile.centres.desc', href: 'centres.html' },
-      { icon: '\uD83D\uDCD6', key: 'nav.healthInfo', desc: 'tile.info.desc', href: 'symptoms.html' },
-      { icon: '\uD83C\uDFA4', key: 'nav.voiceSearch', desc: 'tile.voice.desc', href: 'voice.html' }
+      { iconFn: 'medicine', key: 'nav.findMedicine', desc: 'tile.medicine.desc', href: 'medicine-search.html' },
+      { iconFn: 'doctor', key: 'nav.findDoctor', desc: 'tile.doctor.desc', href: 'doctors.html' },
+      { iconFn: 'centre', key: 'nav.nearbyCentres', desc: 'tile.centres.desc', href: 'centres.html' },
+      { iconFn: 'healthInfo', key: 'nav.healthInfo', desc: 'tile.info.desc', href: 'symptoms.html' },
+      { iconFn: 'voiceSearch', key: 'nav.voiceSearch', desc: 'tile.voice.desc', href: 'voice.html' }
     ];
   };
   C.renderTiles = function (container) {
     var h = RHP.ui.h;
     RHP.ui.replace(container, C.mainTiles().map(function (x) {
+      var iconEl = Icons && Icons[x.iconFn] ? Icons.wrap(Icons[x.iconFn]) : h('span', { class: 'icon', 'aria-hidden': 'true' }, '');
       return h('a', { class: 'card tile', href: x.href },
-        h('span', { class: 'icon', 'aria-hidden': 'true' }, x.icon),
+        iconEl,
         h('span', { class: 'title', 'data-i18n': x.key }, t(x.key)),
         h('span', { class: 'muted', 'data-i18n': x.desc }, t(x.desc)));
     }));
@@ -46,7 +48,7 @@
     var radiusSel = null;
     var radiusLabel = h('label', { for: 'radius-select' });
     if (opts.withRadius) {
-      radiusSel = h('select', { id: 'radius-select', style: 'width:auto;min-width:11rem' });
+      radiusSel = h('select', { id: 'radius-select', class: 'w-auto min-w-[11rem]' });
       [5, 10, 25, 50].forEach(function (km) { radiusSel.appendChild(h('option', { value: km, selected: km === radius }, '')); });
       radiusSel.addEventListener('change', function () { radius = Number(radiusSel.value); if (opts.onRadius) opts.onRadius(radius); });
     }
@@ -60,8 +62,13 @@
     function mapOpen() { return !mapBox.classList.contains('hidden'); }
 
     function texts() {
-      useBtn.textContent = '\uD83D\uDCCD ' + t('location.useMine');
-      mapBtn.textContent = '\uD83D\uDDFA\uFE0F ' + (mapOpen() ? t('location.hideMap') : t('location.pickOnMap'));
+      var Icons = RHP.Icons;
+      useBtn.innerHTML = '';
+      useBtn.appendChild(Icons ? Icons.wrap(Icons.mapPin) : document.createTextNode('\uD83D\uDCCD'));
+      useBtn.appendChild(document.createTextNode(' ' + t('location.useMine')));
+      mapBtn.innerHTML = '';
+      mapBtn.appendChild(Icons ? Icons.wrap(Icons.map) : document.createTextNode('\uD83D\uDDFA\uFE0F'));
+      mapBtn.appendChild(document.createTextNode(' ' + (mapOpen() ? t('location.hideMap') : t('location.pickOnMap'))));
       hint.textContent = t('location.mapHint');
       status.textContent = !loc ? t('location.notSet') : loc.source === 'gps' ? t('location.statusGps') : t('location.statusManual');
       status.className = loc ? '' : 'muted';
@@ -121,22 +128,35 @@
 
   /** A microphone button that fills `opts.input` and calls opts.onFinal(text). Shows a plain note if unsupported. */
   C.micButton = function (opts) {
-    var h = RHP.ui.h, voice = RHP.voice;
+    var h = RHP.ui.h, voice = RHP.voice, Icons = RHP.Icons;
     if (!voice.recognitionSupported()) {
       return h('span', { class: 'muted map-hint', 'data-i18n': 'voice.unsupported' }, t('voice.unsupported'));
     }
     var status = h('span', { class: 'muted', role: 'status', 'aria-live': 'polite' });
     var listening = null;
+    var micIcon = Icons ? Icons.wrap(Icons.mic) : '\uD83C\uDFA4';
     var btn = h('button', { class: 'btn mic', type: 'button', 'aria-pressed': 'false', 'data-i18n-aria-label': 'voice.tap',
-      'data-i18n-title': 'voice.tap', 'aria-label': t('voice.tap'), title: t('voice.tap') }, '\uD83C\uDFA4');
+      'data-i18n-title': 'voice.tap', 'aria-label': t('voice.tap'), title: t('voice.tap') }, micIcon);
 
-    function reset() { btn.classList.remove('listening'); btn.setAttribute('aria-pressed', 'false'); listening = null; }
+    function reset() {
+      btn.classList.remove('listening');
+      btn.setAttribute('aria-pressed', 'false');
+      btn.innerHTML = '';
+      btn.appendChild(Icons ? Icons.wrap(Icons.mic) : document.createTextNode('\uD83C\uDFA4'));
+      listening = null;
+    }
 
     btn.addEventListener('click', function () {
       if (listening) { listening.stop(); return; }
       status.textContent = '';
       listening = voice.listen({
-        onStart: function () { btn.classList.add('listening'); btn.setAttribute('aria-pressed', 'true'); status.textContent = t('voice.listening'); },
+        onStart: function () {
+          btn.classList.add('listening');
+          btn.setAttribute('aria-pressed', 'true');
+          status.textContent = t('voice.listening');
+          btn.innerHTML = '';
+          btn.appendChild(Icons ? Icons.wrap(Icons.micListening) : document.createTextNode('\uD83C\uDFA4'));
+        },
         onInterim: function (text) { if (opts.input) opts.input.value = text; status.textContent = t('voice.heard', { text: text }); },
         onResult: function (text) { if (opts.input) opts.input.value = text; status.textContent = t('voice.heard', { text: text }); if (opts.onFinal) opts.onFinal(text); },
         onError: function (code) { var k = voice.errorKey(code); status.textContent = k ? t(k) : ''; },
@@ -157,7 +177,7 @@
       line.push(' ' + t('doctor.nextSlot', { day: t('day.' + av.nextSlot.dayOfWeek), start: ui.formatTime(av.nextSlot.startTime) }));
     }
     return h('div', null, h('div', null, line),
-      h('div', { class: 'muted', style: 'font-size:.85rem' }, t('doctor.source.' + av.source)));
+      h('div', { class: 'muted text-xs' }, t('doctor.source.' + av.source)));
   };
 
   /** Fills a <datalist> with matching medicines as the user types ("Paracetamol 500mg" style values). */

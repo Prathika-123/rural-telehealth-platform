@@ -177,11 +177,12 @@ RHP.boot({ page: 'provider', roles: ['HEALTHCARE_PROVIDER'] }, function () {
           h('div', { class: 'row between' }, h('h3', null, d.name, ' ', ui.sampleBadge(d.name)), ui.badge(d.specialization, 'info')),
           h('p', { class: 'muted' }, d.centre.name + (d.centre.verificationStatus !== 'VERIFIED' ? ' \u00B7 ' + t('status.' + d.centre.verificationStatus) : '')),
           RHP.components.availabilityBlock(d.availability),
-          h('div', { class: 'row' },
-            h('button', { class: 'btn secondary small', type: 'button', onClick: function () { doctorDialog(d); } }, t('common.edit')),
-            h('button', { class: 'btn secondary small', type: 'button', onClick: function () { scheduleDialog(d); } }, '\uD83D\uDDD3 ' + t('doctor.timings')),
-            h('button', { class: 'btn secondary small', type: 'button', onClick: function () { availabilityDialog(d); } }, t('provider.setAvailability')),
-            h('button', { class: 'btn danger small', type: 'button', onClick: function () { removeDoctor(d); } }, t('common.delete'))));
+          var Icons = RHP.Icons;
+            h('div', { class: 'row' },
+              h('button', { class: 'btn secondary small', type: 'button', onClick: function () { doctorDialog(d); } }, t('common.edit')),
+              h('button', { class: 'btn secondary small', type: 'button', onClick: function () { scheduleDialog(d); } }, Icons ? Icons.wrap(Icons.schedule) : '\uD83D\uDDD3', ' ', t('doctor.timings')),
+              h('button', { class: 'btn secondary small', type: 'button', onClick: function () { availabilityDialog(d); } }, t('provider.setAvailability')),
+              h('button', { class: 'btn danger small', type: 'button', onClick: function () { removeDoctor(d); } }, t('common.delete'))));
       }) : ui.alert('info', t('provider.noDoctors')),
       ui.pager({ page: doctors.page, totalPages: doctors.totalPages, onChange: loadDoctors })));
   }

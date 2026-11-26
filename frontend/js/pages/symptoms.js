@@ -15,12 +15,13 @@ RHP.boot({ page: 'symptoms' }, function () {
   function renderEmergency() {
     if (!emergency) return;
     var e = emergency.emergency;
+    var Icons = RHP.Icons;
     ui.replace(emergencyBox, h('section', { class: 'emergency-box stack', 'aria-labelledby': 'em-title' },
-      h('h2', { id: 'em-title' }, '\u26A0 ' + e.title), h('p', null, e.intro), bullets(e.signs), bullets(e.actions),
+      h('h2', { id: 'em-title' }, Icons ? Icons.wrap(Icons.warning) : '\u26A0', ' ', e.title), h('p', null, e.intro), bullets(e.signs), bullets(e.actions),
       h('div', { class: 'row' }, e.numbers.map(function (n) {
-        return h('a', { class: 'btn danger', href: 'tel:' + n.number }, '\uD83D\uDCDE ' + n.number + ' \u00B7 ' + n.label);
+        return h('a', { class: 'btn danger', href: 'tel:' + n.number }, Icons ? Icons.wrap(Icons.phone) : '\uD83D\uDCDE', ' ', n.number, ' \u00B7 ', n.label);
       }), voice.ttsSupported() ? h('button', { class: 'btn secondary', type: 'button', onClick: function () {
-        speak([e.title, e.intro].concat(e.signs, e.actions).join('. ')); } }, '\uD83D\uDD0A ' + t('voice.readAloud')) : null)));
+        speak([e.title, e.intro].concat(e.signs, e.actions).join('. ')); } }, Icons ? Icons.wrap(Icons.readAloud) : '\uD83D\uDD0A', ' ', t('voice.readAloud')) : null)));
     var warn = [ui.alert('info', emergency.disclaimer)];
     if (emergency.reviewStatus !== 'REVIEWED') warn.push(ui.alert('warn', t('symptoms.notReviewed')));
     ui.replace(notice, warn);
@@ -28,15 +29,17 @@ RHP.boot({ page: 'symptoms' }, function () {
 
   function renderList() {
     if (!list) return;
+    var Icons = RHP.Icons;
     ui.replace(listBox, list.symptoms.map(function (s) {
       return h('button', { class: 'chip', type: 'button', 'aria-pressed': String(s.id === selected), onClick: function () { select(s.id); } },
-        (s.emergency ? '\u26A0 ' : '') + s.name);
+        (s.emergency ? (Icons ? Icons.wrap(Icons.warning).outerHTML : '\u26A0') + ' ' : '') + s.name);
     }));
   }
 
   function renderDetail() {
     if (!detail) { ui.clear(detailBox); return; }
     var s = detail.symptom;
+    var Icons = RHP.Icons;
     function section(titleKey, items, kind) {
       return h('div', { class: kind === 'danger' ? 'emergency-box' : '' }, h('h3', null, t(titleKey)), bullets(items));
     }
@@ -45,10 +48,10 @@ RHP.boot({ page: 'symptoms' }, function () {
       h('p', null, s.about),
       section('symptoms.selfCare', s.selfCare), section('symptoms.seeDoctorIf', s.seeDoctorIf), section('symptoms.emergencyIf', s.emergencyIf, 'danger'),
       h('div', { class: 'row' },
-        h('a', { class: 'btn', href: 'centres.html' }, '\uD83C\uDFE5 ' + t('symptoms.findCare')),
+        h('a', { class: 'btn', href: 'centres.html' }, Icons ? Icons.wrap(Icons.centre) : '\uD83C\uDFE5', ' ', t('symptoms.findCare')),
         voice.ttsSupported() ? h('button', { class: 'btn secondary', type: 'button', onClick: function () {
           speak([s.name, s.about, t('symptoms.seeDoctorIf')].concat(s.seeDoctorIf, [t('symptoms.emergencyIf')], s.emergencyIf).join('. ')); } },
-          '\uD83D\uDD0A ' + t('voice.readAloud')) : null,
+          Icons ? Icons.wrap(Icons.readAloud) : '\uD83D\uDD0A', ' ', t('voice.readAloud')) : null,
         h('button', { class: 'btn secondary', type: 'button', onClick: voice.stopSpeaking }, t('voice.stopReading')))));
   }
 

@@ -49,12 +49,13 @@ RHP.boot({ page: 'doctors' }, function () {
   }
 
   function card(d) {
+    var Icons = RHP.Icons;
     return h('article', { class: 'card stack' },
       h('div', { class: 'row between' },
         h('h3', null, h('a', { href: 'doctor-details.html?id=' + d.id }, d.name), ' ', ui.sampleBadge(d.name)),
         ui.badge(d.specialization, 'info')),
       h('p', { class: 'muted' }, [d.qualification, d.experienceYears !== undefined && d.experienceYears !== null ? t('doctor.years', { years: d.experienceYears }) : null].filter(Boolean).join(' \u00B7 ')),
-      h('p', null, '\uD83C\uDFE5 ' + d.centre.name + ' (' + t('centre.type.' + d.centre.type) + ')',
+      h('p', null, Icons ? Icons.wrap(Icons.centre) : '\uD83C\uDFE5', ' ', d.centre.name + ' (' + t('centre.type.' + d.centre.type) + ')',
         d.distanceKm !== undefined && d.distanceKm !== null ? ' \u00B7 ' + ui.formatDistance(d.distanceKm) : ''),
       RHP.components.availabilityBlock(d.availability),
       h('div', { class: 'row' }, ui.telLink(d.phone || d.centre.phone),

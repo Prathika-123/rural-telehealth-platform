@@ -52,14 +52,15 @@ RHP.boot({ page: 'medicine' }, function () {
         r.stale ? ui.badge(t('medicine.stale', { days: lastData.staleAfterDays }), 'warn') : null),
       h('div', { class: 'row' },
         ui.telLink(r.phone),
-        h('a', { class: 'btn secondary small', href: RHP.geo.directionsUrl({ lat: r.latitude, lng: r.longitude }, lastLoc), target: '_blank', rel: 'noopener' }, '\uD83E\uDDED ' + t('common.directions')),
-        voice.ttsSupported() ? h('button', { class: 'btn secondary small', type: 'button', onClick: function () { speak(spokenLine(r)); } }, '\uD83D\uDD0A ' + t('voice.readAloud')) : null));
+        h('a', { class: 'btn secondary small', href: RHP.geo.directionsUrl({ lat: r.latitude, lng: r.longitude }, lastLoc), target: '_blank', rel: 'noopener' }, Icons ? Icons.wrap(Icons.directions) : '\uD83E\uDDED', ' ', t('common.directions')),
+        voice.ttsSupported() ? h('button', { class: 'btn secondary small', type: 'button', onClick: function () { speak(spokenLine(r)); } }, Icons ? Icons.wrap(Icons.readAloud) : '\uD83D\uDD0A', ' ', t('voice.readAloud')) : null));
   }
 
   function render() {
     if (!lastData) return;
     if (map) { map.destroy(); map = null; }
     var data = lastData, list = data.results.content;
+    var Icons = RHP.Icons;
     var parts = [ui.alert('info', t('medicine.disclaimer'))];
     if (data.status !== 'RESULTS') {
       parts.push(ui.alert('warn', t('search.' + data.status, { radius: data.radiusKm })));
@@ -70,17 +71,18 @@ RHP.boot({ page: 'medicine' }, function () {
     parts.push(h('p', { class: 'muted' }, t('medicine.resultCount', { count: data.results.totalElements })));
     if (voice.ttsSupported()) {
       parts.push(h('p', null, h('button', { class: 'btn secondary small', type: 'button', onClick: function () {
-        speak(list.slice(0, 3).map(spokenLine).join('. ')); } }, '\uD83D\uDD0A ' + t('voice.readResults')),
+        speak(list.slice(0, 3).map(spokenLine).join('. ')); } }, Icons ? Icons.wrap(Icons.readAloud) : '\uD83D\uDD0A', ' ', t('voice.readResults')),
         ' ', h('button', { class: 'btn secondary small', type: 'button', onClick: voice.stopSpeaking }, t('voice.stopReading'))));
     }
     parts.push(mapDiv);
-    parts.push(h('div', { class: 'stack', style: 'margin-top:1rem' }, list.map(card)));
+    parts.push(h('div', { class: 'stack mt-4' }, list.map(card)));
     parts.push(ui.pager({ page: data.results.page, totalPages: data.results.totalPages, onChange: search }));
     ui.replace(results, parts);
+    var Icons = RHP.Icons;
     map = new RHP.RuralMap(mapDiv, { label: t('nav.findMedicine'), lat: lastLoc.lat, lng: lastLoc.lng, zoom: 13 });
     map.setUser(lastLoc.lat, lastLoc.lng);
     map.setMarkers(list.map(function (r) {
-      return { lat: Number(r.latitude), lng: Number(r.longitude), icon: '\uD83D\uDC8A', label: r.pharmacyName,
+      return { lat: Number(r.latitude), lng: Number(r.longitude), icon: Icons ? Icons.wrap(Icons.medicine) : '\uD83D\uDC8A', label: r.pharmacyName,
         popup: r.pharmacyName + ' \u00B7 ' + ui.formatDistance(r.distanceKm) };
     }));
     map.fitToMarkers();

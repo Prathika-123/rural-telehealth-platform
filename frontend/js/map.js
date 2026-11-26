@@ -215,17 +215,23 @@
     });
 
     // markers are rebuilt each render (there are few); the open popup is re-anchored if its marker is still there
+    var Icons = (window.RHP && window.RHP.Icons) || null;
     var old = Array.prototype.slice.call(this.markerLayer.querySelectorAll('.map-marker'));
     old.forEach(function (n) { n.parentNode.removeChild(n); });
     var all = this.markers.map(function (m) { return { m: m, cls: '' }; });
-    if (this.user) all.push({ m: { lat: this.user.lat, lng: this.user.lng, icon: '\uD83D\uDD35', label: 'You' }, cls: ' me' });
-    if (this.pick) all.push({ m: { lat: this.pick.lat, lng: this.pick.lng, icon: '\uD83D\uDCCC', label: 'Chosen place' }, cls: '' });
+    var userIcon = Icons ? Icons.wrap(Icons.mapPinUser) : '\uD83D\uDD35';
+    var pickIcon = Icons ? Icons.wrap(Icons.mapPin) : '\uD83D\uDCCC';
+    if (this.user) all.push({ m: { lat: this.user.lat, lng: this.user.lng, icon: userIcon, label: 'You' }, cls: ' me' });
+    if (this.pick) all.push({ m: { lat: this.pick.lat, lng: this.pick.lng, icon: pickIcon, label: 'Chosen place' }, cls: '' });
     all.forEach(function (item) {
       var m = item.m, p = project(m.lat, m.lng, z);
       var x = Math.round(p.x - r.originX), y = Math.round(p.y - r.originY);
       if (x < -40 || y < -40 || x > w + 40 || y > h + 40) return;
-      var b = el('button', 'map-marker' + item.cls, m.icon || '\uD83D\uDCCD');
+      var b = el('button', 'map-marker' + item.cls, '');
       b.type = 'button'; b.style.left = x + 'px'; b.style.top = y + 'px';
+      if (m.icon && m.icon.nodeType) { b.appendChild(m.icon); }
+      else if (typeof m.icon === 'string') { b.textContent = m.icon; }
+      else { b.textContent = '\uD83D\uDCCD'; }
       if (m.label) { b.title = m.label; b.setAttribute('aria-label', m.label); }
       ['pointerdown', 'mousedown', 'touchstart'].forEach(function (ev) { b.addEventListener(ev, function (e) { e.stopPropagation(); }); });
       b.addEventListener('click', function (e) {

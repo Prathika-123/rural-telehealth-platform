@@ -11,6 +11,8 @@
  * as a fallback, so a missing key never shows blank text. The chosen language is remembered in localStorage.
  * Backend errors carry a stable "code"; I18n.error(code, serverMessage) turns it into the user's language.
  */
+/*global fetch: false */
+
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) { module.exports = factory(); }
   else { root.I18n = factory(); }

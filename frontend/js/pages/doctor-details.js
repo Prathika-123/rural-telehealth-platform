@@ -45,11 +45,12 @@ RHP.boot({ page: 'doctors' }, function () {
         h('p', { class: 'muted' }, [c.address, c.taluk, c.district].filter(Boolean).join(', ')),
         doc.distanceKm !== undefined && doc.distanceKm !== null ? h('p', null, h('strong', null, ui.formatDistance(doc.distanceKm))) : null,
         h('p', { class: 'muted' }, t('common.coordinates', { lat: Number(c.latitude).toFixed(5), lng: Number(c.longitude).toFixed(5) })),
-        h('div', { class: 'row' }, ui.telLink(c.phone),
-          h('a', { class: 'btn secondary small', href: RHP.geo.directionsUrl({ lat: c.latitude, lng: c.longitude }, loc), target: '_blank', rel: 'noopener' }, '\uD83E\uDDED ' + t('common.directions')))),
+        var Icons = RHP.Icons;
+      h('div', { class: 'row' }, ui.telLink(c.phone),
+        h('a', { class: 'btn secondary small', href: RHP.geo.directionsUrl({ lat: c.latitude, lng: c.longitude }, loc), target: '_blank', rel: 'noopener' }, Icons ? Icons.wrap(Icons.directions) : '\uD83E\uDDED', ' ', t('common.directions')))),
       mapDiv));
     map = new RHP.RuralMap(mapDiv, { lat: Number(c.latitude), lng: Number(c.longitude), zoom: 15, label: c.name });
-    map.setMarkers([{ lat: Number(c.latitude), lng: Number(c.longitude), icon: '\uD83C\uDFE5', label: c.name, popup: c.name }]);
+    map.setMarkers([{ lat: Number(c.latitude), lng: Number(c.longitude), icon: Icons ? Icons.wrap(Icons.centre) : '\uD83C\uDFE5', label: c.name, popup: c.name }]);
     if (loc) map.setUser(loc.lat, loc.lng);
   }
   window.I18n.onChange(render);

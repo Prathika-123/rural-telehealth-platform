@@ -36,9 +36,10 @@ RHP.boot({ page: 'centres' }, function () {
       h('p', null, h('strong', null, ui.formatDistance(c.distanceKm))),
       c.services && c.services.length ? h('p', null, c.services.map(function (s) { return [ui.badge(s), ' ']; })) : null,
       h('p', { class: 'muted' }, t('common.coordinates', { lat: Number(c.latitude).toFixed(5), lng: Number(c.longitude).toFixed(5) })),
+      var Icons = RHP.Icons;
       h('div', { class: 'row' }, ui.telLink(c.phone),
-        h('a', { class: 'btn secondary small', href: RHP.geo.directionsUrl({ lat: c.latitude, lng: c.longitude }, lastLoc), target: '_blank', rel: 'noopener' }, '\uD83E\uDDED ' + t('common.directions')),
-        h('a', { class: 'btn secondary small', href: 'doctors.html?centreId=' + c.id }, '\uD83E\uDE7A ' + t('centre.doctorsHere'))));
+        h('a', { class: 'btn secondary small', href: RHP.geo.directionsUrl({ lat: c.latitude, lng: c.longitude }, lastLoc), target: '_blank', rel: 'noopener' }, Icons ? Icons.wrap(Icons.directions) : '\uD83E\uDDED', ' ', t('common.directions')),
+        h('a', { class: 'btn secondary small', href: 'doctors.html?centreId=' + c.id }, Icons ? Icons.wrap(Icons.doctor) : '\uD83E\uDE7A', ' ', t('centre.doctorsHere'))));
   }
 
   function render() {
@@ -47,12 +48,13 @@ RHP.boot({ page: 'centres' }, function () {
     if (!data.content.length) { ui.replace(results, ui.alert('warn', t('centres.none', { radius: panel.getRadius() }))); return; }
     var mapDiv = h('div');
     ui.replace(results, h('p', { class: 'muted' }, t('centres.count', { count: data.totalElements })), mapDiv,
-      h('div', { class: 'stack', style: 'margin-top:1rem' }, data.content.map(card)),
+      h('div', { class: 'stack mt-4' }, data.content.map(card)),
       ui.pager({ page: data.page, totalPages: data.totalPages, onChange: load }));
+    var Icons = RHP.Icons;
     map = new RHP.RuralMap(mapDiv, { lat: lastLoc.lat, lng: lastLoc.lng, zoom: 12, label: t('nav.nearbyCentres') });
     map.setUser(lastLoc.lat, lastLoc.lng);
     map.setMarkers(data.content.map(function (c) {
-      return { lat: Number(c.latitude), lng: Number(c.longitude), icon: '\uD83C\uDFE5', label: c.name, popup: c.name + ' \u00B7 ' + ui.formatDistance(c.distanceKm) };
+      return { lat: Number(c.latitude), lng: Number(c.longitude), icon: Icons ? Icons.wrap(Icons.centre) : '\uD83C\uDFE5', label: c.name, popup: c.name + ' \u00B7 ' + ui.formatDistance(c.distanceKm) };
     }));
     map.fitToMarkers();
   }
