@@ -32,7 +32,12 @@ RHP.boot({ page: 'symptoms' }, function () {
     var Icons = RHP.Icons;
     ui.replace(listBox, list.symptoms.map(function (s) {
       return h('button', { class: 'chip', type: 'button', 'aria-pressed': String(s.id === selected), onClick: function () { select(s.id); } },
-        (s.emergency ? (Icons ? Icons.wrap(Icons.warning).outerHTML : '\u26A0') + ' ' : '') + s.name);
+        var icon = s.emergency ? (Icons ? Icons.wrap(Icons.warning) : '\u26A0') : null;
+      return h('button', { class: 'chip', type: 'button', 'aria-pressed': String(s.id === selected), onClick: function () { select(s.id); } },
+        icon,
+        ' ',
+        s.name);
+    }));
     }));
   }
 
